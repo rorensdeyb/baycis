@@ -1,0 +1,20 @@
+{
+    "$schema": "https://schema.railpack.com",
+    "provider": "php",
+    "packages": {
+        "node": "20"
+    },
+    "steps": {
+        "node:install": {
+            "commands": [
+                "npm ci --no-audit --no-fund"
+            ]
+        },
+        "build": {
+            "commands": [
+                "...",
+                "test -f public/build/manifest.json || npm run build"
+            ]
+        }
+    }
+}
