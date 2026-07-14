@@ -1,0 +1,262 @@
+/* ==========================================
+   BORROWER THEME (SYNCED WITH ADMIN CONFIG)
+   ========================================== */
+:root {
+    --bg-main: #f9fafb;
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #f3f4f6;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    
+    --search-bg: #f3f4f6;
+    --brand-bg: #111827;
+    --brand-icon: #ffffff;
+    
+    --accent-blue: #3b82f6;
+    --accent-blue-bg: #eff6ff;
+    --accent-green: #10b981;
+    --accent-green-bg: #ecfdf5;
+    --accent-yellow: #f59e0b;
+    --accent-yellow-bg: #fffbeb;
+    --accent-red: #ef4444;
+    --accent-red-bg: #fef2f2;
+    --accent-purple: #8b5cf6;
+    --accent-purple-bg: #f5f3ff;
+
+    /* Primary Accent for Borrower remains Green, but styled using Admin variables */
+    --accent-color: var(--accent-green);
+    --accent-bg: var(--accent-green-bg);
+    --btn-text: #ffffff;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --bg-main: #0e0e11;
+    --bg-surface: #18181b;
+    --bg-surface-hover: #27272a;
+    --text-primary: #ffffff;
+    --text-secondary: #b9b9bd;
+    --border-color: #27272a;
+    
+    --search-bg: #18181b;
+    --brand-bg: #ffffff;
+    --brand-icon: #000000;
+    
+    --accent-blue-bg: rgba(59, 130, 246, 0.15);
+    --accent-green-bg: rgba(16, 185, 129, 0.15);
+    --accent-yellow-bg: rgba(245, 158, 11, 0.15);
+    --accent-red-bg: rgba(239, 68, 68, 0.15);
+    --accent-purple-bg: rgba(139, 92, 246, 0.15);
+
+    --accent-color: var(--accent-green);
+    --accent-bg: var(--accent-green-bg);
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+a { text-decoration: none; }
+button { cursor: pointer; border: none; background: transparent; }
+
+/* Force Typography Sync */
+.text-secondary, .text-muted { color: var(--text-secondary) !important; }
+
+/* Sync Input Fields */
+.form-control, .form-select, .theme-dynamic-input {
+    background-color: var(--bg-main) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+.form-control:focus, .form-select:focus, .theme-dynamic-input:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 3px var(--accent-bg) !important;
+    outline: none;
+}
+.form-select option { background-color: var(--bg-surface); color: var(--text-primary); }
+
+/* --- DESKTOP SIDEBAR --- */
+.sidebar { width: 260px; background-color: var(--bg-surface); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; position: fixed; height: 100vh; z-index: 1000; }
+
+.sidebar-header { height: 72px; padding: 0 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-color); background-color: var(--bg-surface); }
+.brand-logo { width: 32px; height: 32px; background: var(--brand-bg); color: var(--brand-icon); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.brand-text { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+
+.sidebar-nav { padding: 20px 12px; flex-grow: 1; display: flex; flex-direction: column; gap: 4px; }
+.nav-item { padding: 12px 16px; color: var(--text-secondary); border-radius: 8px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; transition: 0.2s; }
+.nav-item i { font-size: 18px; }
+.nav-item:hover { background-color: var(--bg-surface-hover); color: var(--text-primary); }
+.nav-item.active { background-color: var(--bg-surface-hover); color: var(--text-primary); font-weight: 600; }
+
+.sidebar-footer { padding: 15px; border-top: 1px solid var(--border-color); display: flex; justify-content: center;}
+
+/* --- MOBILE BOTTOM NAV --- */
+.bottom-nav { display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: var(--bg-surface); border-top: 1px solid var(--border-color); z-index: 1000; padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -4px 20px rgba(0,0,0,0.03); }
+.bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px 0; color: var(--text-secondary); font-size: 11px; font-weight: 600; gap: 4px; transition: 0.2s; }
+.bottom-nav-item i { font-size: 20px; }
+.bottom-nav-item.active { color: var(--text-primary); }
+
+/* --- MAIN CONTENT & TOPBAR --- */
+.main-content { flex-grow: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
+.top-navbar { height: 72px; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); background-color: var(--bg-main); position: sticky; top: 0; z-index: 900; }
+.page-title { font-size: 18px; font-weight: 700; margin: 0; display: none; }
+.top-actions { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+.icon-btn { background: transparent; border: none; color: var(--text-secondary); font-size: 18px; transition: 0.2s; }
+.icon-btn:hover { color: var(--text-primary); }
+.user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-green-bg); color: var(--accent-green); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; }
+
+/* Dashboard Content */
+.dashboard-wrapper { padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.welcome-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+.welcome-header h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px 0; color: var(--text-primary); }
+
+.btn-primary-action { background-color: var(--accent-color) !important; color: var(--btn-text) !important; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; border: none; }
+.btn-primary-action:hover { opacity: 0.85; }
+
+/* Cards & Stats */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 32px; }
+.stat-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; display: flex; align-items: center; gap: 16px; }
+.stat-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+
+.stat-info { display: flex; flex-direction: column; }
+.stat-label { color: var(--text-secondary); font-size: 13px; font-weight: 500; }
+.stat-value { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+
+/* Activity Feed (Mobile Optimized) */
+.activity-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; padding: 24px; }
+.activity-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.activity-header h2 { font-size: 16px; font-weight: 600; margin: 0; }
+.activity-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--border-color); }
+.activity-row:last-child { border-bottom: none; padding-bottom: 0; }
+.item-info { display: flex; align-items: center; gap: 16px; }
+.item-icon { width: 40px; height: 40px; border-radius: 8px; background: var(--bg-main); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 18px; }
+.item-details { display: flex; flex-direction: column; }
+.item-name { font-weight: 600; font-size: 14px; color: var(--text-primary); }
+.item-meta { font-size: 12px; color: var(--text-secondary); }
+
+/* --- RESPONSIVE MOBILE FIXES --- */
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .bottom-nav { display: flex; }
+    .main-content { margin-left: 0; padding-bottom: 70px; }
+    .top-navbar { padding: 0 20px; height: 60px; }
+    .page-title { display: block; }
+    .dashboard-wrapper { padding: 20px; }
+    .welcome-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .btn-primary-action { width: 100%; justify-content: center; }
+    .stats-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ==========================================
+   PROGRESS BAR (WIZARD) - FIXED
+   ========================================== */
+.progress-wizard {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 40px auto; /* Adds perfect spacing below the text */
+}
+
+/* The Gray Background Line */
+.progress-line {
+    position: absolute;
+    top: 16px; /* Perfectly centers the line with the circles */
+    left: 16.66%;
+    width: 66.66%;
+    height: 3px;
+    background-color: var(--border-color);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+/* The Colored Active Line */
+.progress-line-fill {
+    position: absolute;
+    top: 16px;
+    left: 16.66%;
+    height: 3px;
+    background-color: var(--accent-color);
+    z-index: 1;
+    transition: width 0.4s ease;
+    border-radius: 4px;
+}
+
+/* Individual Step Container */
+.step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.33%; /* Distributes the 3 steps perfectly */
+}
+
+/* The Numbered Circle */
+.step-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--bg-surface);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    /* This creates a clean 'cutout' over the connecting line */
+    box-shadow: 0 0 0 6px var(--bg-surface); 
+    transition: all 0.3s ease;
+}
+
+/* Active State (Current Step) */
+.step-item.active .step-circle {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--btn-text);
+}
+
+/* Completed State (Previous Steps) */
+.step-item.completed .step-circle {
+    background-color: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-surface);
+}
+
+/* The Text Label */
+.step-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+    /* Removes the absolute positioning so it flows naturally */
+    position: relative; 
+    top: 0;
+}
+
+/* Highlight text for Active/Completed steps */
+.step-item.active .step-label,
+.step-item.completed .step-label {
+    color: var(--text-primary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+    .step-label {
+        font-size: 11px;
+        white-space: normal; /* Allows text to wrap on small phones */
+    }
+    .progress-wizard {
+        max-width: 100%;
+    }
+}
