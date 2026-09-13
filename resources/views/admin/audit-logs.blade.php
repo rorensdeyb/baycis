@@ -248,6 +248,23 @@ document.addEventListener('DOMContentLoaded', function() {
             this.closest('form').submit();
         });
     });
+
+    // Live search: filter as you type (case-insensitive server-side via whereLike)
+    var searchInput = document.querySelector('input[name="search"]');
+    if (searchInput) {
+        if (searchInput.value) {
+            searchInput.focus();
+            var val = searchInput.value;
+            searchInput.value = ''; searchInput.value = val;
+        }
+        var debounceTimer;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                searchInput.closest('form').submit();
+            }, 800);
+        });
+    }
 });
 </script>
 @endsection

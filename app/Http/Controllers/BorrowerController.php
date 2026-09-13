@@ -134,8 +134,8 @@ class BorrowerController extends Controller
         if ($request->has('search') && !empty($request->search)) {
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'LIKE', '%' . $searchTerm . '%')
-                  ->orWhere('property_tag', 'LIKE', '%' . $searchTerm . '%');
+                $q->whereLike('name', '%' . $searchTerm . '%')
+                  ->orWhereLike('property_tag', '%' . $searchTerm . '%');
             });
         }
 
@@ -221,10 +221,10 @@ class BorrowerController extends Controller
         if ($search !== '') {
             $borrowsQuery->where(function ($q) use ($search) {
                 $q->whereHas('item', function ($iq) use ($search) {
-                    $iq->where('name', 'LIKE', "%{$search}%")
-                       ->orWhere('property_tag', 'LIKE', "%{$search}%");
-                })->orWhere('id', 'LIKE', "%{$search}%")
-                  ->orWhere('purpose', 'LIKE', "%{$search}%");
+                    $iq->whereLike('name', "%{$search}%")
+                       ->orWhereLike('property_tag', "%{$search}%");
+                })->orWhereLike('id', "%{$search}%")
+                  ->orWhereLike('purpose', "%{$search}%");
             });
         }
         if ($status !== 'all' && $status !== '') {
@@ -239,9 +239,9 @@ class BorrowerController extends Controller
         if ($search !== '') {
             $issuancesQuery->where(function ($q) use ($search) {
                 $q->whereHas('item', function ($iq) use ($search) {
-                    $iq->where('name', 'LIKE', "%{$search}%");
-                })->orWhere('id', 'LIKE', "%{$search}%")
-                  ->orWhere('purpose', 'LIKE', "%{$search}%");
+                    $iq->whereLike('name', "%{$search}%");
+                })->orWhereLike('id', "%{$search}%")
+                  ->orWhereLike('purpose', "%{$search}%");
             });
         }
         if ($status !== 'all' && $status !== '') {

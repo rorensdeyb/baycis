@@ -131,11 +131,11 @@ class SettingsController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
-                $q->where('action', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('table_name', 'like', "%{$search}%")
+                $q->whereLike('action', "%{$search}%")
+                  ->orWhereLike('description', "%{$search}%")
+                  ->orWhereLike('table_name', "%{$search}%")
                   ->orWhereHas('user', function ($u) use ($search) {
-                      $u->where('name', 'like', "%{$search}%");
+                      $u->whereLike('name', "%{$search}%");
                   });
             });
         }

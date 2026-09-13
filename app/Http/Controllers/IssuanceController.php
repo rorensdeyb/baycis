@@ -63,9 +63,9 @@ class IssuanceController extends Controller
         if ($request->filled('search')) {
             $s = $request->search;
             $historyQuery->where(function ($q) use ($s) {
-                $q->whereHas('user', fn ($u) => $u->where('name', 'like', "%{$s}%"))
-                  ->orWhereHas('item', fn ($i) => $i->where('name', 'like', "%{$s}%"))
-                  ->orWhere('purpose', 'like', "%{$s}%");
+                $q->whereHas('user', fn ($u) => $u->whereLike('name', "%{$s}%"))
+                  ->orWhereHas('item', fn ($i) => $i->whereLike('name', "%{$s}%"))
+                  ->orWhereLike('purpose', "%{$s}%");
             });
         }
 
@@ -235,7 +235,7 @@ class IssuanceController extends Controller
         $q = trim((string) $request->query('q', ''));
         $query = ConsumableStock::query()
             ->when($q !== '', function ($w) use ($q) {
-                $w->where('name', 'like', "%{$q}%");
+                $w->whereLike('name', "%{$q}%");
             })
             ->orderBy('name')->limit(8);
 
@@ -491,9 +491,9 @@ class IssuanceController extends Controller
         if ($request->filled('search')) {
             $s = $request->search;
             $query->where(function ($q) use ($s) {
-                $q->whereHas('user', fn ($u) => $u->where('name', 'like', "%{$s}%"))
-                  ->orWhereHas('item', fn ($i) => $i->where('name', 'like', "%{$s}%"))
-                  ->orWhere('purpose', 'like', "%{$s}%");
+                $q->whereHas('user', fn ($u) => $u->whereLike('name', "%{$s}%"))
+                  ->orWhereHas('item', fn ($i) => $i->whereLike('name', "%{$s}%"))
+                  ->orWhereLike('purpose', "%{$s}%");
             });
         }
 

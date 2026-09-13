@@ -74,8 +74,8 @@ class PrintStudioController extends Controller
 
         $items = Item::with('category:id,name')
             ->where(function ($w) use ($q) {
-                $w->where('property_tag', 'like', "%{$q}%")
-                  ->orWhere('name', 'like', "%{$q}%");
+                $w->whereLike('property_tag', "%{$q}%")
+                  ->orWhereLike('name', "%{$q}%");
             })
             ->orderBy('property_tag')
             ->limit(10)

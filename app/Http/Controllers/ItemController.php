@@ -30,8 +30,8 @@ class ItemController extends Controller
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'like', "%{$searchTerm}%")
-                  ->orWhere('property_tag', 'like', "%{$searchTerm}%");
+                $q->whereLike('name', "%{$searchTerm}%")
+                  ->orWhereLike('property_tag', "%{$searchTerm}%");
             });
         }
         if ($request->filled('category') && $request->category !== 'all') {
@@ -57,8 +57,8 @@ class ItemController extends Controller
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
-                $q->where('name', 'like', "%{$searchTerm}%")
-                  ->orWhere('property_tag', 'like', "%{$searchTerm}%");
+                $q->whereLike('name', "%{$searchTerm}%")
+                  ->orWhereLike('property_tag', "%{$searchTerm}%");
             });
         }
         if ($request->filled('category') && $request->category !== 'all') {
@@ -398,9 +398,9 @@ $request->validate([
         if ($request->has('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->where('name', 'LIKE', "%{$search}%")
-                  ->orWhere('property_tag', 'LIKE', "%{$search}%")
-                  ->orWhere('serial_number', 'LIKE', "%{$search}%");
+                $q->whereLike('name', "%{$search}%")
+                  ->orWhereLike('property_tag', "%{$search}%")
+                  ->orWhereLike('serial_number', "%{$search}%");
             });
         }
 
@@ -531,10 +531,10 @@ $request->validate([
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
-                $q->where('id', 'LIKE', "%{$searchTerm}%")
-                  ->orWhereHas('user', fn($u) => $u->where('name', 'LIKE', "%{$searchTerm}%"))
-                  ->orWhereHas('item', fn($i) => $i->where('name', 'LIKE', "%{$searchTerm}%")
-                        ->orWhere('property_tag', 'LIKE', "%{$searchTerm}%"));
+                $q->whereLike('id', "%{$searchTerm}%")
+                  ->orWhereHas('user', fn($u) => $u->whereLike('name', "%{$searchTerm}%"))
+                  ->orWhereHas('item', fn($i) => $i->whereLike('name', "%{$searchTerm}%")
+                        ->orWhereLike('property_tag', "%{$searchTerm}%"));
             });
         }
         if ($request->filled('status') && $request->status !== 'all') {

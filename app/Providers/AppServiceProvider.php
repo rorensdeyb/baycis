@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -19,6 +21,20 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+        // Case-insensitive LIKE for every search box in the system.
+        // Postgres LIKE is case-sensitive (unlike MySQL), so all user
+        // searches go through these macros: ILIKE on pgsql, LIKE elsewhere.
+        // Usage: ->whereLike('name', "%{$term}%")->orWhereLike('email', ...)
+        $likeOperator = fn () => DB::getDriverName() === 'pgsql' ? 'ILIKE' : 'LIKE';
+        Builder::macro('whereLike', function (string $column, string $value) use ($likeOperator) {
+            /** @var Builder $this */
+            return $this->where($column, $likeOperator(), $value);
+        });
+        Builder::macro('orWhereLike', function (string $column, string $value) use ($likeOperator) {
+            /** @var Builder $this */
+            return $this->orWhere($column, $likeOperator(), $value);
+        });
 
         // Register Observers
         Item::observe(ItemObserver::class);

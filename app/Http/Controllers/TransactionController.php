@@ -24,14 +24,14 @@ class TransactionController extends Controller
         if ($request->has('search') && $request->search != '') {
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
-                $q->where('id', 'LIKE', "%{$searchTerm}%")
+                $q->whereLike('id', "%{$searchTerm}%")
                   ->orWhere('qr_code_hash', $searchTerm) // <--- ADDED QR SEARCH HERE
                   ->orWhereHas('user', function($u) use ($searchTerm) {
-                      $u->where('name', 'LIKE', "%{$searchTerm}%");
+                      $u->whereLike('name', "%{$searchTerm}%");
                   })
                   ->orWhereHas('item', function($i) use ($searchTerm) {
-                      $i->where('name', 'LIKE', "%{$searchTerm}%")
-                        ->orWhere('property_tag', 'LIKE', "%{$searchTerm}%");
+                      $i->whereLike('name', "%{$searchTerm}%")
+                        ->orWhereLike('property_tag', "%{$searchTerm}%");
                   });
             });
         }
@@ -355,11 +355,11 @@ class TransactionController extends Controller
             $searchTerm = $request->search;
             $query->where(function($q) use ($searchTerm) {
                 $q->whereHas('user', function($u) use ($searchTerm) {
-                    $u->where('name', 'LIKE', "%{$searchTerm}%");
+                    $u->whereLike('name', "%{$searchTerm}%");
                 })
                 ->orWhereHas('item', function($i) use ($searchTerm) {
-                    $i->where('name', 'LIKE', "%{$searchTerm}%")
-                      ->orWhere('property_tag', 'LIKE', "%{$searchTerm}%");
+                    $i->whereLike('name', "%{$searchTerm}%")
+                      ->orWhereLike('property_tag', "%{$searchTerm}%");
                 });
             });
         }
