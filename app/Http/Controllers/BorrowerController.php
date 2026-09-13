@@ -171,11 +171,10 @@ class BorrowerController extends Controller
             $borrow->purpose = $request->purpose;
             $borrow->status = 'pending';
             $borrow->qr_code_hash = $request->qr_code_hash;
-            
-            // 👇 BUG FIX: Adding the required date field 👇
-            $borrow->requested_date = now(); 
-            
-            $borrow->save(); 
+
+            // requested_date/expected_return_date were dropped by migration
+            // 2026_07_02_183755 — request time is recorded in created_at.
+            $borrow->save();
 
             // 4. Update the item status
             $item->status = 'borrowed'; 

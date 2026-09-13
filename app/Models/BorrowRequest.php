@@ -13,8 +13,8 @@ class BorrowRequest extends Model
     protected $fillable = [
         'user_id',
         'item_id',
-        'requested_date',
-        'expected_return_date',
+        // NOTE: requested_date/expected_return_date were dropped by
+        // migration 2026_07_02_183755 — do not re-add (see controllers).
         'purpose',
         'status',
         'admin_remarks',

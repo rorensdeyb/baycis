@@ -211,7 +211,8 @@ class TransactionController extends Controller
             $borrowRequest = new BorrowRequest();
             $borrowRequest->user_id           = $request->user_id;
             $borrowRequest->item_id           = $request->item_id;
-            $borrowRequest->requested_date    = now();
+            // NOTE: requested_date was dropped by migration 2026_07_02_183755;
+            // request time is recorded in created_at.
             $borrowRequest->purpose           = $request->purpose;
             $borrowRequest->status            = 'approved';
             $borrowRequest->admin_remarks     = $request->admin_remarks ?? 'Walk-in request initiated by ' . $adminUser->name;
