@@ -1,0 +1,85 @@
+# ============================================================
+# BayCIS Inventory Management System — Requirements & Setup
+# ============================================================
+# Laravel 13 + PHP 8.3 + MySQL/SQLite
+#
+# Run these commands in order on the new machine:
+#   composer install
+#   npm install
+#   copy .env.example .env   (then edit DB credentials)
+#   php artisan key:generate
+#   php artisan migrate
+#   npm run build
+#   php artisan serve
+#
+# Or use the shortcut:
+#   composer run setup
+#
+# ============================================================
+
+# ─── SYSTEM REQUIREMENTS ──────────────────────────────────
+# These must be installed on the target machine FIRST.
+
+PHP                 >= 8.3        https://php.net/downloads
+Composer            >= 2.5        https://getcomposer.org
+Node.js             >= 20         https://nodejs.org
+NPM                 >= 10         (bundled with Node.js)
+
+# ─── REQUIRED PHP EXTENSIONS ──────────────────────────────
+# Enable these in php.ini before running composer install.
+
+extension=mbstring
+extension=openssl
+extension=pdo_mysql       # or extension=pdo_sqlite for quick setup
+extension=tokenizer
+extension=xml
+extension=ctype
+extension=json
+extension=fileinfo
+extension=bcmath
+extension=gd               # for QR code / image generation
+
+# ─── DATABASE ──────────────────────────────────────────────
+# Option A — SQLite (easiest for testing / demo)
+#   Default in .env.example — nothing extra needed.
+#
+# Option B — MySQL / MariaDB
+#   Install MySQL 8.0+ or MariaDB 10.6+
+#   Create a database and user, then update .env:
+#     DB_CONNECTION=mysql
+#     DB_HOST=127.0.0.1
+#     DB_PORT=3306
+#     DB_DATABASE=baycis
+#     DB_USERNAME=root
+#     DB_PASSWORD=your_password
+
+# ─── QUICK SETUP (Windows) ─────────────────────────────────
+# Open Command Prompt or PowerShell as Administrator:
+#
+#   1. cd C:\path\to\BayCIS
+#   2. composer install
+#   3. npm install
+#   4. copy .env.example .env
+#   5. php artisan key:generate
+#   6. php artisan migrate
+#   7. npm run build
+#   8. php artisan serve
+#
+# Then open http://127.0.0.1:8000 in your browser.
+
+# ─── QUICK SETUP (macOS / Linux) ───────────────────────────
+#   1. cd /path/to/BayCIS
+#   2. composer install
+#   3. npm install
+#   4. cp .env.example .env
+#   5. php artisan key:generate
+#   6. php artisan migrate
+#   7. npm run build
+#   8. php artisan serve
+
+# ─── DEFAULT ADMIN ACCESS (after first run) ─────────────────
+# Register your first account via the web interface.
+# The first user role will be set appropriately.
+#
+# Default SQLite database location:
+#   database/database.sqlite

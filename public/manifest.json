@@ -1,0 +1,13 @@
+{
+  "name": "BayCIS - Bay Central Inventory System",
+  "short_name": "BayCIS",
+  "description": "Inventory Management System for Bay Central Elementary School",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f8ff",
+  "theme_color": "#1a3a4a",
+  "orientation": "any",
+  "categories": ["education", "business", "productivity"],
+  "lang": "en-PH",
+  "scope": "/"
+}
