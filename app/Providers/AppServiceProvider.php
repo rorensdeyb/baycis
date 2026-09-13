@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Item;
 use App\Observers\ItemObserver;
@@ -13,6 +14,12 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        // Railway serves the app behind HTTPS (dashboard-assigned domain).
+        // Local (non-production) environments are unaffected.
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         // Register Observers
         Item::observe(ItemObserver::class);
         Transaction::observe(TransactionObserver::class);
